@@ -1,8 +1,7 @@
-
 # Class board : La grille et son contenu, ne doit jamais être conscient du reste ( Players / Game )
 class Board
 	#pour pouvoir accéder à @c depuis les autres classes / espaces
-	attr_reader :c
+	attr_accessor :c # initialement en reader mais passer en accessor pour pouvoir modifier/debugger avec pry
 
 	# initialise un tableau de tableaux (tableau 2D), ici 3 lignes contenant chacune 3 cases (colones).
 	# Utilisation :
@@ -95,16 +94,16 @@ class Correction # Ma classe Game, renommée pour l'occasion
 				pos = gets.chomp.split(' ').collect {|x| x.to_i}
 				# Rappelez vous, la fonction "cell" lance "check" après avoir posé pour
 				# vérifier, et retourne son résultat 
-				winner = @board.cell(pos[0], pos[1], player.char)
+				game_ended = @board.cell(pos[0], pos[1], player.char)
 			rescue
 				print " STILL #{player.nickname.upcase}'s TURN: I said 2 digits separated by a space, and it goes without saying, from 1 to 3.\n
 				 RTFM before your second chance : "
 				pos = gets.chomp.split(' ').collect {|x| x.to_i}
-				winner = @board.cell(pos[0], pos[1], player.char)
+				game_ended = @board.cell(pos[0], pos[1], player.char)
 			end
 			# Si gagné, retourne une phrase de victoire
-			puts "#{@board.show}\n\n And #{player.nickname} wins! (As usual...)\n 	;)" if winner
-			return if winner
+			puts "#{@board.show}\n\n And #{player.nickname} wins! (As usual...)\n 	;)" if game_ended
+			return true if game_ended
 		end
 		# Si pas gagné sur ce tour, retourne false
 		false
@@ -114,7 +113,7 @@ class Correction # Ma classe Game, renommée pour l'occasion
 	# Retourne si victoire de qulqu'un, ou puts un
 	# message en cas d'égalité, càd sortie du while sans victoire (tableau plein)
 	def solve
-		while @board.c[0].include?(' ') || @board.c[1].include?(' ') || @board.c[2].include?(' ')
+		while ( @board.c[0].include?(' ') || @board.c[1].include?(' ') || @board.c[2].include?(' ') )
 			# Self.new_turn, "self." et non @ car fonction qu'on veut lancer dessus
 			# et non variable à laquelle on veut accéder
 			winner = self.new_turn
