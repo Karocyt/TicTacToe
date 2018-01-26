@@ -3,7 +3,9 @@ class Board
 	#pour pouvoir accéder à @c depuis les autres classes / espaces
 	attr_accessor :c # initialement en reader mais passer en accessor pour pouvoir modifier/debugger avec pry
 
-	# initialise un tableau de tableaux (tableau 2D), ici 3 lignes contenant chacune 3 cases (colones).
+	# Une Cell n'ayant qu'un Id et une valeur, et un index ayant ces mêmes proprétés, pas de class Cell
+	# initialise un tableau de tableaux (tableau 2D),
+	# ici 3 lignes contenant chacune 3 cases (colones).
 	# Utilisation :
 	#		- @c 				=> array de 3 éléments (arrays)
 	# 	- @c[0] 		=> élément '0'(ligne 1) de @c => array de 3 elements (strings)
@@ -47,7 +49,7 @@ class Board
 end
 
 # Un nom et un caractère, un joueur n'est que ça chez moi.
-# Du coup une classe est inutile, un hash dans game aurait fait l'affaire 
+# Du coup une classe est inutile, un hash dans game aurait fait l'affaire
 # 		@players = { name1 => 'X', name2 => 'O' }
 # 			Utilisation : @players[name1] 
 class Player
