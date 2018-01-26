@@ -87,21 +87,23 @@ class Correction # Ma classe Game, renommée pour l'occasion
 	# puts un message de victoire si victoire
 	def new_turn
 		@players.each do |player|
-			begin
-				@board.show
-				print " #{player.nickname}'s turn: Where do you want to play (2 space separated digits with line first)? "
-				# Séparation du x et y en array et retrait de l'espace dans la foulée
-				# Puis, pour chacun, transformation en int (pour 'integer', nombre entier, au
-				#  lieu de la string que me récupère gets.chomp)
-				pos = gets.chomp.split(' ').collect {|x| x.to_i}
-				# Rappelez vous, la fonction "cell" lance "check" après avoir posé pour
-				# vérifier, et retourne son résultat 
-				game_ended = @board.cell(pos[0], pos[1], player.char)
-			rescue
-				print " STILL #{player.nickname.upcase}'s TURN: I said 2 digits separated by a space, and it goes without saying, from 1 to 3.\n
-				 RTFM before your second chance : "
-				pos = gets.chomp.split(' ').collect {|x| x.to_i}
-				game_ended = @board.cell(pos[0], pos[1], player.char)
+			if ( @board.c[0].include?(' ') || @board.c[1].include?(' ') || @board.c[2].include?(' ') )
+				begin
+					@board.show
+					print " #{player.nickname}'s turn: Where do you want to play (2 space separated digits with line first)? "
+					# Séparation du x et y en array et retrait de l'espace dans la foulée
+					# Puis, pour chacun, transformation en int (pour 'integer', nombre entier, au
+					#  lieu de la string que me récupère gets.chomp)
+					pos = gets.chomp.split(' ').collect {|x| x.to_i}
+					# Rappelez vous, la fonction "cell" lance "check" après avoir posé pour
+					# vérifier, et retourne son résultat 
+					game_ended = @board.cell(pos[0], pos[1], player.char)
+				rescue
+					print " STILL #{player.nickname.upcase}'s TURN: I said 2 digits separated by a space, and it goes without saying, from 1 to 3.\n
+					 RTFM before your second chance : "
+					pos = gets.chomp.split(' ').collect {|x| x.to_i}
+					game_ended = @board.cell(pos[0], pos[1], player.char)
+				end
 			end
 			# Si gagné, retourne une phrase de victoire
 			puts "#{@board.show}\n\n And #{player.nickname} wins! (As usual...)\n 	;)" if game_ended
