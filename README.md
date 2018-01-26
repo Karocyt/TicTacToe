@@ -7,11 +7,11 @@ Le OrangeTree est ~~pas~~ commenté aussi, mais surtout **lancez-le** ! *(Ça me
 
 
 
-`Test 1 2, 1 2 ? Houston ?! This is supposed to be code
-if blablabla.capitalize.include?
-	blabla.each do |bla|
-			puts "Bla"
-end`
+`Test 1 2, 1 2 ? Houston ?! This is supposed to be code`
+    if blablabla.capitalize.include?
+    	blabla.each do |bla|
+    			puts "Bla"
+    end
 
 
 Orange Tree | Tic Tac Toe
